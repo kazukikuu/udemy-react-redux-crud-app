@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './index.css';
 import reducer from './reducers'
@@ -12,7 +13,7 @@ import EventsNew from './components/events_new';
 import EventsShow from './components/events_show';
 import * as serviceWorker from './serviceWorker';
 import { composeWithDevTools } from 'redux-devtools-extension'
-// import registerServiceWorker from './registerServiceWorker';
+
 
 
 const enhancer = process.env.NODE_ENV === 'development' ?
@@ -21,17 +22,19 @@ const enhancer = process.env.NODE_ENV === 'development' ?
 const store = createStore(reducer, enhancer)
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
 
-        <Route path="/events/new" component={EventsNew} />
-        <Route path="/events/:id" component={EventsShow} />
-        <Route exact path="/" component={EventsIndex} />
-        <Route exact path="/events" component={EventsIndex} />
-      </Switch>
-    </BrowserRouter>
-  </Provider>,
+          <Route path="/events/new" component={EventsNew} />
+          <Route path="/events/:id" component={EventsShow} />
+          <Route exact path="/" component={EventsIndex} />
+          <Route exact path="/events" component={EventsIndex} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 // registerServiceWorker();
